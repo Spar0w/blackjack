@@ -97,7 +97,7 @@ fn blackjack(hand: &Vec<Card>) -> bool {
 
 fn results(player: &Player, dealer: &Player) {
     //determine the winner
-    if ((score(&player.hand) > score(&dealer.hand)) && !check_bust(&player.hand)) || check_bust(&dealer.hand)   {
+    if ((score(&player.hand) > score(&dealer.hand)) && !check_bust(&player.hand)) || check_bust(&dealer.hand)  {
         println!("Player wins!");
     } else {
         println!("Dealer wins!");
@@ -132,8 +132,13 @@ fn game_loop(deck: &mut Vec<Card>, player: &mut Player, dealer: &mut Player) {
         println!();
 
         //check blackjack
-        if (blackjack(&player.hand)) { player.playing=false };
-        if (blackjack(&dealer.hand)) { dealer.playing=false };
+        if (blackjack(&player.hand)) { 
+            player.playing=false;
+            break;
+        } else if (blackjack(&dealer.hand)) { 
+            dealer.playing=false;
+            break;
+        }
 
         //player turn
         if (player.playing){
